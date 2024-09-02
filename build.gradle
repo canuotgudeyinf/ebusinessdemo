@@ -24,6 +24,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'com.baomidou:mybatis-plus:3.5.7'
     implementation 'org.springframework.boot:spring-boot-starter'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
