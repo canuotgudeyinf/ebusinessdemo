@@ -1,4 +1,4 @@
-package org.example.entity;
+package org.example.test.entity;
 import lombok.Data;
 import com.baomidou.mybatisplus.annotation.TableName;
 @Data
