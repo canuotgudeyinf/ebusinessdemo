@@ -13,9 +13,8 @@ public class MyUtil {
         StringBuffer str = new StringBuffer();
         for (int i = 0; i < 9; i++) {
             // 生成 0-9 随机整数
-            str = str.append(random.nextInt(10));
+            str.append(random.nextInt(10));
         }
-        String newFileName = str + fileType;
-        return newFileName;
+        return str + fileType;
     }
 }
