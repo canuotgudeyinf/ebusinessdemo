@@ -17,7 +17,13 @@ public class AUserController {
 
     @AuthIgrone
     @PostMapping("/login")
-    public ResponseResult<Map<String, String>> login(@RequestParam AUserEntity aUserEntity) {
+    public ResponseResult<Map<String, String>> login(@RequestBody AUserEntity aUserEntity) {
         return aUserService.login(aUserEntity);
+    }
+
+    @AuthIgrone
+    @PostMapping("/changeUserName")
+    public ResponseResult<Map<String, Object>> changeUserName(@RequestBody AUserEntity aUserEntity) {
+        return aUserService.changeUserName(aUserEntity);
     }
 }

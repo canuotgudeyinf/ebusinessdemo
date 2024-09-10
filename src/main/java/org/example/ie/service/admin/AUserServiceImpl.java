@@ -31,7 +31,7 @@ public class AUserServiceImpl extends ServiceImpl<AUserMapper, AUserEntity> impl
             return ResponseResult.getMessageResult(null,"A001");
         }
         Map<String, String> mapparam = new HashMap<>();
-        mapparam.put("username", aUserEntity.getAname());
+        mapparam.put("aname", aUserEntity.getAname());
         mapparam.put("apwd", aUserEntity.getApwd());
         List<AUserEntity> mu = query().allEq(mapparam).list();
         if(!mu.isEmpty()){
@@ -47,5 +47,13 @@ public class AUserServiceImpl extends ServiceImpl<AUserMapper, AUserEntity> impl
             return ResponseResult.getMessageResult(null, "A002");
         }
     }
+
+    @Override
+    public ResponseResult<Map<String, Object>> changeUserName(AUserEntity aUserEntity) {
+        if(updateById(aUserEntity))
+            return ResponseResult.getMessageResult(null, "A001");
+        return ResponseResult.getMessageResult(null, "A002");
+    }
+
 }
 
