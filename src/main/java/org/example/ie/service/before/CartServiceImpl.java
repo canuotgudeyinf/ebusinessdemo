@@ -1,5 +1,6 @@
 package org.example.ie.service.before;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.example.ie.common.http.ResponseResult;
@@ -50,6 +51,20 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, CartEntity> impleme
             bCarts.add(cart);
         }
         this.updateBatchById(bCarts);
+        return ResponseResult.getMessageResult(null,"A001");
+    }
+
+    @Override
+    public ResponseResult<Map<String, Object>> clearCart(CartEntity cartEntity) {
+        QueryWrapper<CartEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("busertable_id", cartEntity.getBusertableId());
+        this.remove(queryWrapper);
+        return ResponseResult.getMessageResult(null,"A001");
+    }
+
+    @Override
+    public ResponseResult<Map<String, Object>> removeCart(CartEntity cartEntity) {
+        this.removeById(cartEntity);
         return ResponseResult.getMessageResult(null,"A001");
     }
 }

@@ -39,4 +39,15 @@ public class CartController {
     public ResponseResult<Map<String, Object>> bupDateCart(@RequestBody CartEntity cartEntity){
         return cartService.bupDateCart(cartEntity);
     }
+
+    @PostMapping("/clearCart")
+    public ResponseResult<Map<String, Object>> clearCart(@RequestBody CartEntity cartEntity){
+        return cartService.clearCart(cartEntity);
+    }
+
+    @AuthIgrone
+    @PostMapping("/removeCart")
+    public ResponseResult<Map<String, Object>> removeCart(@RequestBody CartEntity cartEntity){
+        return cartService.removeCart(cartEntity);
+    }
 }

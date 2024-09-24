@@ -10,4 +10,8 @@ public interface CartService extends IService<CartEntity> {
     ResponseResult<Map<String, Object>> addCart(CartEntity cartEntity);
 
     ResponseResult<Map<String, Object>> bupDateCart(CartEntity cartEntity);
+
+    ResponseResult<Map<String, Object>> clearCart(CartEntity cartEntity);
+
+    ResponseResult<Map<String, Object>> removeCart(CartEntity cartEntity);
 }
