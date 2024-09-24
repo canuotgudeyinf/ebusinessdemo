@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import org.example.ie.common.http.ResponseResult;
 import org.example.ie.entity.GoodsTypeEntity;
 
-import java.util.List;
 import java.util.Map;
 
 public interface GoodsTypeService extends IService<GoodsTypeEntity> {

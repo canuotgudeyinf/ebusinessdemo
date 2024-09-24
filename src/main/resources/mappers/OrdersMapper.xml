@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.ie.mapper.admin.OrderMapper">
+    <select id="getOrdersDetail" resultType="map" parameterType="OrdersEntity">
+        select
+            gt.id, gt.gname, gt.grprice, od.shoppingnum, gt.grprice * od.shoppingnum smallTotal
+        from orderdetail  as od
+                 join goodstable as gt on  od.goodstable_id = gt.id
+            where od.orderbasetable_id = #{id}
+    </select>
+    <!-- 订单销量按月统计（这个方法没有用到，可以使用链式查询） -->
+    <select id="selectOrderByMonth"  resultType="map" parameterType="OrdersEntity">
+        select sum(amount) totalamount, date_format(orderdate,'%Y-%m') months
+        from orderbasetable  where status = 1
+        <if test="startDate != null and startDate != ''">
+            <!--xml里写<,>,!=号都是无法解析的，需要转移-->
+            <![CDATA[
+                and date_format(orderdate,'%Y-%m') >= #{startDate}
+            ]]>
+        </if>
+        <if test="endDate != null and startDate != ''">
+            <!--xml里写<,>,!=号都是无法解析的，需要转移-->
+            <![CDATA[
+                and date_format(orderdate,'%Y-%m') <= #{endDate}
+            ]]>
+        </if>
+        group by months order by months
+    </select>
+    <!-- 按类型统计（最近1年的） -->
+    <select id="selectOrderByType" resultType="map">
+        SELECT
+            SUM(gt.grprice * od.shoppingnum) AS value,
+            gy.typename AS name
+        FROM
+            orderbasetable ob
+            JOIN orderdetail od ON ob.id = od.orderbasetable_id
+            JOIN goodstable gt ON od.goodstable_id = gt.id
+            JOIN goodstype gy ON gt.goodstype_id = gy.id
+        WHERE
+            ob.status = 1
+            AND ob.orderdate > DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+        GROUP BY
+            gy.typename
+    </select>
+</mapper>

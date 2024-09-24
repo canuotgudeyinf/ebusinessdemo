@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.ie.mapper.admin.GoodsMapper">
+    <!--
+    ${ew.customSqlSegment}是一个动态SQL语句占位符，可以用于构建复杂的SQL查询条件。
+    其中，ew是一个Wrapper对象，用于构建查询条件。在ew对象中，可以使用各种方法来构建查询条件，例如：
+eq：相等条件ne：不等条件like：模糊查询条件in：包含条件between：范围查询条件
+等等使用${ew.customSqlSegment}时，MyBatis-Plus会将ew对象中构建的查询条件转化为SQL语句，并将其插入到${ew.customSqlSegment}占位符位置。这样就可以在SQL语句中动态构建查询条件，实现更加灵活的查询功能。
+   https://blog.csdn.net/qq120631157/article/details/131755055
+   https://huaweicloud.csdn.net/64eea878a3cccc782cc57b3d.html
+   https://gitcode.csdn.net/65ed7f771a836825ed79b8d0.html
+   https://blog.csdn.net/weixin_44684303/article/details/128127607
+   attention：
+   https://blog.csdn.net/xxNGchi/article/details/120681606
+    -->
+    <select id="iPageGoods" resultType="GoodsEntity">
+        select
+            gt.*, gy.typename
+        from goodstable  as gt
+            join goodstype as gy on  gy.id = gt.goodstype_id
+            ${ew.customSqlSegment}
+    </select>
+    <!--我的收藏-->
+    <select id="iPageMyFocusGoods" resultType="GoodsEntity">
+        select
+            gt.*, gy.typename
+        from goodstable  as gt
+                 join goodstype as gy on  gy.id = gt.goodstype_id
+                 join focustable as ft on ft.goodstable_id = gt.id
+            ${ew.customSqlSegment}
+    </select>
+    <!--我的购物车
+    SQL查询：这段代码定义了一个名为myCartGoods的查询，它从两个表goodstable和carttable中获取数据。
+    表连接：使用JOIN语句将goodstable和carttable连接起来，连接条件是carttable中的goodstable_id
+           等于goodstable中的id。
+    选择字段：查询选择了goodstable表中的所有字段（gt.*），以及carttable中的shoppingnum（购物数量）
+            和id（购物车条目ID），并将其重命名为cid。
+    条件过滤：使用WHERE子句过滤结果，只选择carttable中busertable_id等于传入参数uid的记录，即只选择
+            指定用户的购物车中的商品。
+    -->
+    <select id="myCartGoods" resultType="map">
+        select
+            gt.*, ct.shoppingnum, ct.id cid
+        from goodstable  as gt
+                 join carttable as ct on ct.goodstable_id = gt.id
+        where ct.busertable_id = #{uid}
+    </select>
+</mapper>
