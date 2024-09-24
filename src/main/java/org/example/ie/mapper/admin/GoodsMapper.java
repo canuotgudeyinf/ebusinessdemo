@@ -10,5 +10,5 @@ import java.util.Map;
 
 @Repository
 public interface GoodsMapper extends BaseMapper<GoodsEntity> {
-        List<Map<String,Object>> myCartGoods(CartEntity cartEntity);
+        List<Map<String,Object>> myCartGoods(int uid);
 }

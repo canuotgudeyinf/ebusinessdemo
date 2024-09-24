@@ -29,7 +29,7 @@ public class CartController {
     }
 
     @AuthIgrone
-    @PostMapping("/addCart")
+    @PostMapping("/add")
     public ResponseResult<Map<String, Object>> addCart(@RequestBody CartEntity cartEntity){
         return cartService.addCart(cartEntity);
     }

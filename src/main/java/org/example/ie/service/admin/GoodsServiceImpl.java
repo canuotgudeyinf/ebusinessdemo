@@ -151,7 +151,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper,GoodsEntity> imple
 
     @Override
     public ResponseResult<List<Map<String,Object>>> myCartGoods(CartEntity cartEntity) {
-        List<Map<String,Object>> maps = goodsMapper.myCartGoods(cartEntity);
+        List<Map<String,Object>> maps = goodsMapper.myCartGoods(cartEntity.getBusertableId());
         return ResponseResult.getSuccessResult(maps);
     }
 
